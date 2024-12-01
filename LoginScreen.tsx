@@ -1,3 +1,52 @@
+// import React, { useState } from 'react';
+// import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+// import axios from 'axios';
+
+// const LoginScreen = ({ navigation }: { navigation: any }) => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+
+//   const handleLogin = async () => {
+//     try {
+//       const response = await axios.post('http://localhost:5000/login', { username, password });
+//       if (response.data.token) {
+//         Alert.alert('Success', 'Login successful');
+//         navigation.navigate('Notes', { token: response.data.token });
+//       }
+//     } catch (error) {
+//       Alert.alert('Error', 'Login failed');
+//     }
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.title}>Login</Text>
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Username"
+//         value={username}
+//         onChangeText={setUsername}
+//       />
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Password"
+//         secureTextEntry
+//         value={password}
+//         onChangeText={setPassword}
+//       />
+//       <Button title="Login" onPress={handleLogin} />
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: { flex: 1, justifyContent: 'center', padding: 20 },
+//   title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
+//   input: { borderWidth: 1, marginBottom: 10, padding: 10, borderRadius: 5 },
+// });
+
+// export default LoginScreen;
+
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 
