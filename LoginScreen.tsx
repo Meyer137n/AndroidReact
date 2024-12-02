@@ -13,11 +13,11 @@ const LoginScreen: React.FC = ({ navigation }: any) => {
     }
 
     axios
-      .post('http://localhost:5000/login', { username, password })
+      .post('http://192.168.0.104:5000/login', { username, password })
       .then(response => {
-        Alert.alert('Успех', 'Вы успешно вошли');
-        console.log('Token:', response.data.token);
-        // Здесь можно сохранить токен в AsyncStorage
+        const { token } = response.data; // Получаем токен из ответа
+        Alert.alert('Авторизация прошла успешно', 'Добро пожаловать');
+        navigation.navigate('Note', { token }); // Передаём токен в NoteScreen
       })
       .catch(error => {
         Alert.alert('Ошибка', error.response?.data?.message || 'Неправильные учетные данные');
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   buttonContainer: {
-    marginBottom: 15, // Увеличивает отступ между кнопками
+    marginBottom: 15,
   },
 });
 

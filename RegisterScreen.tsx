@@ -13,7 +13,7 @@ const RegisterScreen: React.FC = ({ navigation }: any) => {
     }
 
     axios
-      .post('http://localhost:5000/register', { username, password })
+      .post('http://192.168.0.104:5000/register', { username, password })
       .then(() => {
         Alert.alert('Успех', 'Регистрация завершена');
         navigation.navigate('Login');
@@ -39,7 +39,7 @@ const RegisterScreen: React.FC = ({ navigation }: any) => {
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Зарегистрироваться" onPress={handleRegister} />
+      <Button title="Register" onPress={handleRegister} />
     </View>
   );
 };
