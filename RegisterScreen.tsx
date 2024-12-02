@@ -1,46 +1,68 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import axios from 'axios';
 
-const RegisterScreen = ({ navigation }: { navigation: any }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const RegisterScreen: React.FC = ({ navigation }: any) => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const handleRegister = async () => {
-    try {
-      await axios.post('http://localhost:5000/register', { username, password });
-      Alert.alert('Success', 'Registration successful');
-      navigation.navigate('Login');
-    } catch (error) {
-      Alert.alert('Error', 'Registration failed');
+  const handleRegister = () => {
+    if (username.trim() === '' || password.trim() === '') {
+      Alert.alert('Ошибка', 'Заполните все поля');
+      return;
     }
+
+    axios
+      .post('http://localhost:5000/register', { username, password })
+      .then(() => {
+        Alert.alert('Успех', 'Регистрация завершена');
+        navigation.navigate('Login');
+      })
+      .catch(error => {
+        Alert.alert('Ошибка', error.response?.data?.message || 'Не удалось зарегистрироваться');
+      });
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>Регистрация</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Имя пользователя"
         value={username}
         onChangeText={setUsername}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Пароль"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Зарегистрироваться" onPress={handleRegister} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
-  input: { borderWidth: 1, marginBottom: 10, padding: 10, borderRadius: 5 },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 15,
+  },
 });
 
 export default RegisterScreen;
